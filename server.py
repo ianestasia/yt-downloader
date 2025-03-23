@@ -38,7 +38,6 @@ def download():
         if not stream:
             return jsonify({"error": "No suitable stream found"}), 400
 
-        # Download file
         stream.download(
             output_path=DOWNLOAD_FOLDER,
             filename=f"{filename}.{ext}"
@@ -52,9 +51,14 @@ def download():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
-@app.route('/downloads/<path:filename>')
-def serve_file(filename):
-    return send_from_directory(DOWNLOAD_FOLDER, filename)
+@app.route('/download', methods=['POST'])
+def download():
+    try:
+        print("Received request:", request.json)  
+        
+    except Exception as e:
+        print(f"🔥 Error: {str(e)}")  
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=5001)  
