@@ -7,7 +7,7 @@ import re
 import uuid
 
 app = Flask(__name__)
-CORS(app)  # Enable CORS
+CORS(app, resources={r"/download": {"origins": "http://localhost:5000"}})
 
 DOWNLOAD_FOLDER = 'downloads'
 os.makedirs(DOWNLOAD_FOLDER, exist_ok=True)
